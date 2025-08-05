@@ -1,7 +1,6 @@
 "use strict";
-const isAfter = require('date-fns/isAfter')
+const isAfter = require("date-fns/isAfter");
 // код з isAfter не обов'язковий
-
 
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
@@ -18,31 +17,31 @@ module.exports = (sequelize, DataTypes) => {
   User.init(
     {
       firstName: {
-        field: first_name,
+        field: 'first_name',
         type: DataTypes.STRING,
         allowNull: false,
-        validate:{
+        validate: {
           notNull: true,
-          notEmpty:true
-        }
+          notEmpty: true,
+        },
       },
       lastName: {
-        field: last_name,
+        field: 'last_name',
         type: DataTypes.STRING,
         allowNull: false,
-        validate:{
+        validate: {
           notNull: true,
-          notEmpty:true
-        }
+          notEmpty: true,
+        },
       },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
-        validate:{
+        validate: {
           notNull: true,
-          notEmpty:true
-        }
+          notEmpty: true,
+        },
       },
       password: {
         type: DataTypes.TEXT,
@@ -51,24 +50,20 @@ module.exports = (sequelize, DataTypes) => {
       },
       birthday: {
         type: DataTypes.DATEONLY,
-        validate:{
+        validate: {
           isDate: true,
-          isValidDate(value){     // isAfter
-             if(isAfter(new Date(value), new Date())){
-                throw new Error('Your birthday must be earlier then today')
-             }
-          }
-        }
+          isBefore: new Date().toDateString(),
+        },
       },
       gender: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
       },
     },
     {
       sequelize,
       modelName: "User",
       tableName: "users",
-      underscored: true
+      underscored: true,
     }
   );
   return User;

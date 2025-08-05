@@ -38,12 +38,12 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        filed: "created_at",
+        field: "created_at",
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        filed: "updated_at",
+        field: "updated_at",
       },
     });
   },
