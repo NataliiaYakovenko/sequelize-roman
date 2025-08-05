@@ -9,3 +9,12 @@ module.exports.createUser = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.findAll = async (req, res, next) => {
+  try {
+    const resultArray = await User.findAll();
+    return res.status(200).send(resultArray);
+  } catch (error) {
+    next(error);
+  }
+};
