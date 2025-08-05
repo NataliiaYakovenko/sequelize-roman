@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty:true
         }
       },
-      emqil: {
+      email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
