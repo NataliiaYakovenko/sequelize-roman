@@ -32,18 +32,34 @@ module.exports.findByPk = async (req, res, next) => {
   }
 };
 
+// module.exports.updateByPk = async (req, res, next) => {
+//   try {
+//     const {
+//       params: { id },
+//       body,
+//     } = req;
+//     const updatedUsersArray = await User.update(body, {
+//       where: { id: id },
+//       returning: true,
+//     });
+
+//     return res.status(200).send(updatedUsersArray);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
+//нестатичний метод
 module.exports.updateByPk = async (req, res, next) => {
   try {
-    const {
-      params: { id },
-      body,
-    } = req;
-    const updatedUsersArray = await User.update(body, {
-      where: { id: id },
-      returning: true,
-    });
+    const {params: { id }, body} = req;
 
-    return res.status(200).send(updatedUsersArray);
+    const foundUser = await User.findByPk(id);
+ 
+    const result = await foundUser.update(body);
+    return res.status(200).send(result);
+
+
   } catch (error) {
     next(error);
   }
