@@ -35,3 +35,21 @@ module.exports.getAllUserTask = async (req, res, next) => {
     next(error);
   }
 };
+
+//потрібно отримати КІЛЬКІСТЬ всіх тасок одного юзера
+module.exports.getCountAllTasks = async (req, res, next) => {
+  const {
+    body,
+    params: { userId },
+  } = req;
+  try {
+    //знаходимо юзера
+    const user = await User.findByPk(userId);
+
+    //знаходимо кількість тасок одного юзера
+    const countAllTasks = await user.countTasks();
+    return res.status(200).send(countAllTasks);
+  } catch (error) {
+    next(error);
+  }
+};

@@ -28,4 +28,7 @@ router.post("/task/:userId", taskController.createTask);
 //GET http://localhost:5000/api/tasks/1
 router.get("/tasks/:userId", taskController.getAllUserTask);
 
+//GET http://localhost:5000/api/tasks-count/1
+router.get("/tasks-count/:userId", taskController.getCountAllTasks);
+
 module.exports = router;
