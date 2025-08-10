@@ -4,8 +4,8 @@ POST http://localhost:5000/api/user HTTP/1.1
  {
   "firstName": "Nataliia4",
   "lastName": "Yakovenko4",
-  "email": "natali4@gmail.com",
-  "password": "qwerty67",
+  "email": "Natali8*@gmail.com",
+  "password": "Qwerty123*",
   "birthday" : "1983-10-14",
   "gender": "female"
  }
