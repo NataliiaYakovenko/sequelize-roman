@@ -1,16 +1,10 @@
 const { User, Task } = require("../models/index");
 
 module.exports.createTask = async (req, res, next) => {
-  const {
-    body,
-    params: { userId },
-  } = req;
+  const { body, userInstance } = req;
   try {
-    //знайти юзера, якому потрібно додати таску
-    const user = await User.findByPk(userId);
-
     //потрібно знайденому юзеру додати таски
-    const createdResult = await user.createTask(body);
+    const createdResult = await userInstance.createTask(body);
 
     return res.status(201).send(createdResult);
   } catch (error) {
@@ -20,16 +14,10 @@ module.exports.createTask = async (req, res, next) => {
 
 //потрібно отримати всі таски одного юзера
 module.exports.getAllUserTask = async (req, res, next) => {
-  const {
-    body,
-    params: { userId },
-  } = req;
+  const { userInstance } = req;
   try {
-    //знаходимо юзера
-    const user = await User.findByPk(userId);
-
     //знаходимо всі таски одного юзера
-    const findAllTasks = await user.getTasks();
+    const findAllTasks = await userInstance.getTasks();
     return res.status(200).send(findAllTasks);
   } catch (error) {
     next(error);
@@ -38,16 +26,10 @@ module.exports.getAllUserTask = async (req, res, next) => {
 
 //потрібно отримати КІЛЬКІСТЬ всіх тасок одного юзера
 module.exports.getCountAllTasks = async (req, res, next) => {
-  const {
-    body,
-    params: { userId },
-  } = req;
+  const { userInstance } = req;
   try {
-    //знаходимо юзера
-    const user = await User.findByPk(userId);
-
     //знаходимо кількість тасок одного юзера
-    const countAllTasks = await user.countTasks();
+    const countAllTasks = await userInstance.countTasks();
     return res.status(200).send(`${countAllTasks}`);
   } catch (error) {
     next(error);

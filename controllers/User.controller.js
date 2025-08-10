@@ -22,55 +22,50 @@ module.exports.findAll = async (req, res, next) => {
 
 module.exports.findByPk = async (req, res, next) => {
   try {
-    const {
-      params: { id },
-    } = req;
-    const foundUser = await User.findByPk(id);
-    return res.status(200).send(foundUser);
+    const { userInstance } = req;
+    return res.status(200).send(userInstance);
   } catch (error) {
     next(error);
   }
 };
 
-module.exports.updateByPk = async (req, res, next) => {
-  try {
-    const {
-      params: { id },
-      body,
-    } = req;
-    const updatedUsersArray = await User.update(body, {
-      where: { id: id },
-      returning: true,
-    });
-
-    return res.status(200).send(updatedUsersArray);
-  } catch (error) {
-    next(error);
-  }
-};
-
-//нестатичний метод
 // module.exports.updateByPk = async (req, res, next) => {
 //   try {
-//     const {params: { id }, body} = req;
+//     const {
+//       params: { id },
+//       body,
+//     } = req;
+//     const updatedUsersArray = await User.update(body, {
+//       where: { id: id },
+//       returning: true,
+//     });
 
-//     const foundUser = await User.findByPk(id);
- 
-//     const result = await foundUser.update(body);
-//     return res.status(200).send(result);
-
-
+//     return res.status(200).send(updatedUsersArray);
 //   } catch (error) {
 //     next(error);
 //   }
 // };
 
+//нестатичний метод
+module.exports.updateByPk = async (req, res, next) => {
+  try {
+    const { body } = req;
+
+    const { userInstance } = req;
+
+    const result = await userInstance.update(body);
+    return res.status(200).send(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports.deleteByPk = async (req, res, next) => {
   try {
     const {
-      params: { id },
+      params: { userId },
     } = req;
-    const rowsCount = await User.destroy({ where: { id: id } });
+    const rowsCount = await User.destroy({ where: { id: userId } });
 
     if (rowsCount > 0) {
       return res.status(200).send("Successful delete");
