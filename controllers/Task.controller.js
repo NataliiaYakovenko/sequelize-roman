@@ -17,3 +17,21 @@ module.exports.createTask = async (req, res, next) => {
     next(error);
   }
 };
+
+//потрібно отримати всі таски одного юзера
+module.exports.getAllUserTask = async (req, res, next) => {
+  const {
+    body,
+    params: { userId },
+  } = req;
+  try {
+    //знаходимо юзера
+    const user = await User.findByPk(userId);
+
+    //знаходимо всі таски одного юзера
+    const findAllTasks = await user.getTasks();
+    return res.status(200).send(findAllTasks);
+  } catch (error) {
+    next(error);
+  }
+};

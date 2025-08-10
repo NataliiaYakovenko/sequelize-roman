@@ -22,7 +22,10 @@ router.delete("/user/:id", UserController.deleteByPk);
 
 //--------------------------------------------------
 
-//POST http://localhost:5000/api/task/2
+//POST http://localhost:5000/api/task/1
 router.post("/task/:userId", taskController.createTask);
+
+//GET http://localhost:5000/api/tasks/1
+router.get("/tasks/:userId", taskController.getAllUserTask);
 
 module.exports = router;
