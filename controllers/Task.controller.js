@@ -48,7 +48,7 @@ module.exports.getCountAllTasks = async (req, res, next) => {
 
     //знаходимо кількість тасок одного юзера
     const countAllTasks = await user.countTasks();
-    return res.status(200).send(countAllTasks);
+    return res.status(200).send(`${countAllTasks}`);
   } catch (error) {
     next(error);
   }
