@@ -11,13 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      User.hasMany(models.Task, {
+        foreignKey: "userId",
+      });
     }
   }
   User.init(
     {
       firstName: {
-        field: 'first_name',
+        field: "first_name",
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -26,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       lastName: {
-        field: 'last_name',
+        field: "last_name",
         type: DataTypes.STRING,
         allowNull: false,
         validate: {

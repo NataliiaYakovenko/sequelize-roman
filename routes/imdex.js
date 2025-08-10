@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const UserController = require("../controllers/User.controler");
+const UserController = require("../controllers/User.controller");
 const { ro } = require("date-fns/locale");
 
 const router = Router();
