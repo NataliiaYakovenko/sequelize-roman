@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const UserController = require("../controllers/User.controller");
 const { ro } = require("date-fns/locale");
+const taskController = require("../controllers/Task.controller");
 
 const router = Router();
 
@@ -18,5 +19,10 @@ router.put("/user/:id", UserController.updateByPk);
 
 // DELETE http://localhost:5000/api/user/3
 router.delete("/user/:id", UserController.deleteByPk);
+
+//--------------------------------------------------
+
+//POST http://localhost:5000/api/task/2
+router.post("/task/:userId", taskController.createTask);
 
 module.exports = router;
