@@ -2,13 +2,14 @@ const { Router } = require("express");
 const UserController = require("../controllers/User.controller");
 const { ro } = require("date-fns/locale");
 const taskController = require("../controllers/Task.controller");
-const { getUserInstance } = require("../middlewares/user.mv");
+const { getUserInstance } = require("../middlewares/user.mw");
 const { validateUser } = require("../middlewares/user.validation");
+const { validateTask } = require("../middlewares/task.mw");
 
 const router = Router();
 
 //POST http://localhost:5000/api/user
-router.post("/user",validateUser,UserController.createUser);
+router.post("/user", validateUser, UserController.createUser);
 
 //GET http://localhost:5000/api/users
 router.get("/users", UserController.findAll);
@@ -25,7 +26,7 @@ router.delete("/user/:userId", UserController.deleteByPk);
 //--------------------------------------------------
 
 //POST http://localhost:5000/api/task/1
-router.post("/task/:userId", getUserInstance, taskController.createTask);
+router.post("/task/:userId",validateTask, getUserInstance, taskController.createTask);
 
 //GET http://localhost:5000/api/tasks/1
 router.get("/tasks/:userId", getUserInstance, taskController.getAllUserTask);

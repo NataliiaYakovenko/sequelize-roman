@@ -1,7 +1,7 @@
-POST http://localhost:5000/api/task/1
+POST http://localhost:5000/api/task/2
 Content-Type: application/json
 
 {
-   "body":"Montenegro",
+   "body":"Go to sport",
    "isDone": false 
 }
