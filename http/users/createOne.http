@@ -1,11 +1,11 @@
 POST http://localhost:5000/api/user HTTP/1.1
  Content-Type: application/json
 
- {
-  "firstName": "Nataliia9",
-  "lastName": "Yakovenko9",
-  "email": "Natal56*@gmail.com",
-  "password": "Qwerty125*",
-  "birthday" : "1983-10-14",
+{
+  "firstName": "Olena",
+  "lastName": "Petrenko",
+  "email": "olena@gmail.com",
+  "password": "Password12345",
+  "birthday": "1990-05-22",
   "gender": "female"
- }
+}

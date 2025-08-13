@@ -44,7 +44,7 @@ router.get(
   taskController.getCountAllTasks
 );
 
-router.post("/groups", groupController.addUserToGroup);
+router.post("/groups", groupController.createGroup);
 router.put("/groups/:userId/:groupId",getUserInstance, groupController.addUserToGroup)
 
 module.exports = router;
