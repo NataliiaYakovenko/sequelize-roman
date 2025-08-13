@@ -1,5 +1,5 @@
 const express = require("express");
-const router = require("./routes/imdex");
+const router = require("./routes/index");
 const { errorHandler } = require("./errorHandler");
 
 

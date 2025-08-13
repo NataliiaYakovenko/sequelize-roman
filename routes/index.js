@@ -1,7 +1,8 @@
 const { Router } = require("express");
-const UserController = require("../controllers/User.controller");
 const { ro } = require("date-fns/locale");
+const UserController = require("../controllers/User.controller");
 const taskController = require("../controllers/Task.controller");
+const groupController = require("../controllers/Group.controller");
 const { getUserInstance } = require("../middlewares/user.mw");
 const { validateUser } = require("../middlewares/user.validation");
 const { validateTask } = require("../middlewares/task.mw");
@@ -26,7 +27,12 @@ router.delete("/user/:userId", UserController.deleteByPk);
 //--------------------------------------------------
 
 //POST http://localhost:5000/api/task/1
-router.post("/task/:userId",validateTask, getUserInstance, taskController.createTask);
+router.post(
+  "/task/:userId",
+  validateTask,
+  getUserInstance,
+  taskController.createTask
+);
 
 //GET http://localhost:5000/api/tasks/1
 router.get("/tasks/:userId", getUserInstance, taskController.getAllUserTask);
@@ -37,5 +43,8 @@ router.get(
   getUserInstance,
   taskController.getCountAllTasks
 );
+
+router.post("/groups", groupController.addUserToGroup);
+router.put("/groups/:userId/:groupId",getUserInstance, groupController.addUserToGroup)
 
 module.exports = router;
