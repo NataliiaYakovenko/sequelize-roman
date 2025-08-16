@@ -1,4 +1,4 @@
-const { User } = require("../models/index");
+const { User, Group } = require("../models/index");
 
 module.exports.createUser = async (req, res, next) => {
   try {
@@ -75,3 +75,4 @@ module.exports.deleteByPk = async (req, res, next) => {
     next(error);
   }
 };
+

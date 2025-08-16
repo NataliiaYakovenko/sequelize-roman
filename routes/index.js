@@ -45,6 +45,13 @@ router.get(
 );
 
 router.post("/groups", groupController.createGroup);
-router.put("/groups/:userId/:groupId",getUserInstance, groupController.addUserToGroup)
+router.put(
+  "/groups/:userId/:groupId",
+  getUserInstance,
+  groupController.addUserToGroup
+);
+
+//GET http://localhost:5000/api/groups/:userId
+router.get("/groups/:userId", getUserInstance, groupController.getUserGroups);
 
 module.exports = router;

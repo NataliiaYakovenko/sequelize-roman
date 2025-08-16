@@ -29,3 +29,16 @@ module.exports.addUserToGroup = async (req, res, next) => {
     next(error);
   }
 };
+
+//знаходження груп конкретного юзера
+
+module.exports.getUserGroups = async (req, res, next) => {
+  try {
+    const { userInstance } = req;
+
+    const groups = await userInstance.getGroups();
+    res.status(200).send(groups);
+  } catch (err) {
+    next(err);
+  }
+};
