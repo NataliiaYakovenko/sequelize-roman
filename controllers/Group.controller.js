@@ -42,3 +42,39 @@ module.exports.getUserGroups = async (req, res, next) => {
     next(err);
   }
 };
+
+//видалити user з групи
+module.exports.deleteUserFromGroup = async (req, res, next) => {
+  try {
+    const { userInstance } = req;
+    const { groupId } = req.params;
+
+    const groupInstance = await Group.findByPk(groupId);
+    if (!groupInstance) {
+      return res.status(404).send("Group not found");
+    }
+    const rowCount = await groupInstance.removeUser(userInstance);
+    if (rowCount) {
+      return res.status(200).send("User deleted");
+    }
+    return res.status(400).send("User is not in this group");
+  } catch (error) {
+    next(error);
+  }
+};
+
+// module.exports.deleteUserFromGroup = async (req, res, next) => {
+//   try {
+//     const { userInstance } = req;
+//     const { groupId } = req.params;
+
+//     const foundGroup = await Group.findByPk(groupId);
+//     if (!foundGroup) {
+//       return res.status(404).send("Group not found");
+//     }
+//     const deleteUser = await foundGroup.removeUser();
+//     res.status(200).end();
+//   } catch (error) {
+//     next(error);
+//   }
+// };
