@@ -97,13 +97,19 @@ module.exports.getUserwithGroups = async (req, res, next) => {
     const { userId } = req.params;
 
     const userWithGroups = await User.findByPk(userId, {
-      include: [Group],
+      include: [
+        {
+          model: Group,
+          through: { attributes: []  },   // працює на зв'язну таблицю users_to_gtoups
+          attributes: ['id','name']   // працює на таблицю groups
+        },
+      ],
     });
 
-    if(!userWithGroups){
-       res.status(404).send("User not found");
+    if (!userWithGroups) {
+      res.status(404).send("User not found");
     }
-    return res.status(200).send(userWithGroups)
+    return res.status(200).send(userWithGroups);
   } catch (err) {
     next(err);
   }
