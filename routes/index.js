@@ -19,7 +19,7 @@ router.get("/users", UserController.findAll);
 router.get("/user/:userId", getUserInstance, UserController.findByPk);
 
 //GET http://localhost:5000/api/users/groups/1
-router.get("/users/groups/:userId",UserController.getUserwithGroup);
+router.get("/users/groups/:userId",UserController.getUserwithGroups);
 
 // PUT http://localhost:5000/api/user/8
 router.put("/user/:userId", getUserInstance, UserController.updateByPk);

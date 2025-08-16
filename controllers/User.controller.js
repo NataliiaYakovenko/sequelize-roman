@@ -76,16 +76,34 @@ module.exports.deleteByPk = async (req, res, next) => {
   }
 };
 //приклад Lazy loading - лениве завантаження
-module.exports.getUserwithGroup = async (req, res, next) => {
+// module.exports.getUserwithGroup = async (req, res, next) => {
+//   try {
+//     const { userId } = req.params;
+//     const userInstance = await User.findByPk(userId);
+//     if (!userInstance) {
+//       res.status(404).send("User not found");
+//     }
+//       const groupsArray = await userInstance.getGroups();
+
+//     return res.status(200).send({ data: { userInstance, groupsArray } });
+//   } catch (err) {
+//     next(err);
+//   }
+// };
+
+// голодне(моментальне завантаження)
+module.exports.getUserwithGroups = async (req, res, next) => {
   try {
     const { userId } = req.params;
-    const userInstance = await User.findByPk(userId);
-    if (!userInstance) {
-      res.status(404).send("User not found");
-    }
-      const groupsArray = await userInstance.getGroups();
 
-    return res.status(200).send({ data: { userInstance, groupsArray } });
+    const userWithGroups = await User.findByPk(userId, {
+      include: [Group],
+    });
+
+    if(!userWithGroups){
+       res.status(404).send("User not found");
+    }
+    return res.status(200).send(userWithGroups)
   } catch (err) {
     next(err);
   }
