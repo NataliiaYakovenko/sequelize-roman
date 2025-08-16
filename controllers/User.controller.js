@@ -97,6 +97,7 @@ module.exports.getUserwithGroups = async (req, res, next) => {
     const { userId } = req.params;
 
     const userWithGroups = await User.findByPk(userId, {
+      attributes:['id','first_name','last_name'],    //повертаємо тільки ті данні які нам потрібні
       include: [
         {
           model: Group,
