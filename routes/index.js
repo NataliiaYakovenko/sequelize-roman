@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const { ro } = require("date-fns/locale");
 const UserController = require("../controllers/User.controller");
 const taskController = require("../controllers/Task.controller");
 const groupController = require("../controllers/Group.controller");
@@ -7,7 +6,11 @@ const { getUserInstance } = require("../middlewares/user.mw");
 const { validateUser } = require("../middlewares/user.validation");
 const { validateTask } = require("../middlewares/task.mw");
 
+const userRouter = require("./userRouter");
+
 const router = Router();
+
+router.use("/users", userRouter);
 
 //POST http://localhost:5000/api/user
 router.post("/user", validateUser, UserController.createUser);
