@@ -78,3 +78,26 @@ module.exports.deleteUserFromGroup = async (req, res, next) => {
 //     next(error);
 //   }
 // };
+
+module.exports.getGroupWithMembers = async (req, res, next) => {
+  try {
+    const { groupId } = req.params;
+
+    const getGroupWithUser = await Group.findAll({
+      where: {
+        id: groupId,
+      },
+      include: [
+        {
+          model: User,
+          attributes: {
+            exclude: ['password'],
+          },
+        },
+      ],
+    });
+    return res.status(200).send(getGroupWithUser);
+  } catch (error) {
+    next(error);
+  }
+};
