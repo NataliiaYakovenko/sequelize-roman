@@ -17,7 +17,7 @@ module.exports.getAllUserTask = async (req, res, next) => {
   const { userInstance } = req;
   try {
     //знаходимо всі таски одного юзера
-    const findAllTasks = await userInstance.getTasks();
+    const findAllTasks = await userInstance.getTasks({ limit: 5, offset: 3 });
     return res.status(200).send(findAllTasks);
   } catch (error) {
     next(error);
