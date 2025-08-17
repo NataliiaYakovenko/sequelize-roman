@@ -1,6 +1,20 @@
 const { Router } = require("express");
 const groupController = require("../controllers/Group.controller");
 const { getUserInstance } = require("../middlewares/user.mw");
+const multer = require("multer");
+const path = require("path");
+//const upload = multer({ dest: path.resolve(__dirname,'../public/images') });
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.resolve(__dirname, "../public/images"));
+  },
+  filename: function (req, file, cb) {
+    cb(null, `${Date.now()}.${file.originalname}`);
+  },
+});
+
+const upload = multer({ storage: storage });
 
 const groupRouter = Router();
 
@@ -16,6 +30,13 @@ groupRouter.get("/:userId", getUserInstance, groupController.getUserGroups);
 
 //GET http://lovalhost:5000/api/groups/:groupId/members
 groupRouter.get("/:groupId/members", groupController.getGroupWithMembers);
+
+//POST http://localhost:5000/api/groups/:groupId
+groupRouter.post(
+  "/:group",
+  upload.single("groupAvatar"),
+  groupController.createGroupImage
+);
 
 //DELETE http://localhost:5000/api/groups/:userId/:groupId
 groupRouter.delete(

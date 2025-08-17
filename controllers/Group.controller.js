@@ -1,5 +1,6 @@
 const { User, Task, Group } = require("../models");
 
+
 module.exports.createGroup = async (req, res, next) => {
   try {
     const { body } = req;
@@ -91,12 +92,24 @@ module.exports.getGroupWithMembers = async (req, res, next) => {
         {
           model: User,
           attributes: {
-            exclude: ['password'],
+            exclude: ["password"],
           },
         },
       ],
     });
     return res.status(200).send(getGroupWithUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports.createGroupImage = async (req, res, next) => {
+  try {
+    const {params:{groupId} } = req
+
+    console.log(req.file);
+
+    return res.send({groupId})
   } catch (error) {
     next(error);
   }
