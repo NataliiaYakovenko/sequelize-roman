@@ -3,11 +3,12 @@ const groupController = require("../controllers/Group.controller");
 const { getUserInstance } = require("../middlewares/user.mw");
 const multer = require("multer");
 const path = require("path");
+const { STATIC_PATH } = require("../config/path.config");
 //const upload = multer({ dest: path.resolve(__dirname,'../public/images') });
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.resolve(__dirname, "../public/images"));
+    cb(null, STATIC_PATH);
   },
   filename: function (req, file, cb) {
     cb(null, `${Date.now()}.${file.originalname}`);
@@ -28,7 +29,7 @@ groupRouter.put(
 //GET http://localhost:5000/api/groups/:userId
 groupRouter.get("/:userId", getUserInstance, groupController.getUserGroups);
 
-//GET http://lovalhost:5000/api/groups/:groupId/members
+//GET http://localhost:5000/api/groups/:groupId/members
 groupRouter.get("/:groupId/members", groupController.getGroupWithMembers);
 
 //POST http://localhost:5000/api/groups/:groupId
