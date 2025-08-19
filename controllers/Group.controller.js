@@ -1,6 +1,5 @@
 const { User, Task, Group } = require("../models");
 
-
 module.exports.createGroup = async (req, res, next) => {
   try {
     const { body } = req;
@@ -105,11 +104,24 @@ module.exports.getGroupWithMembers = async (req, res, next) => {
 
 module.exports.createGroupImage = async (req, res, next) => {
   try {
-    const {params:{groupId} } = req
+    const {
+      params: { groupId },
+      file: { fileName },
+    } = req;
 
-    console.log(req.file);
+    const [rowCount, [updatedGroup]] = await Group.update(
+      {
+        imagePath: fileName,
+      },
+      {
+        where: {
+          id: groupId,
+        },
+        returning: true,
+      }
+    );
 
-    return res.send({groupId})
+    return res.status(200).send(updatedGroup);
   } catch (error) {
     next(error);
   }

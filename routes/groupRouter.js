@@ -33,7 +33,7 @@ groupRouter.get("/:groupId/members", groupController.getGroupWithMembers);
 
 //POST http://localhost:5000/api/groups/:groupId
 groupRouter.post(
-  "/:group",
+  "/:groupId",
   upload.single("groupAvatar"),
   groupController.createGroupImage
 );
