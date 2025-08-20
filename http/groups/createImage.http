@@ -1,6 +1,0 @@
-POST http://localhost:5000/api/groups/3
-Content-Type: application/json
-
-{
-    "key":"value"
-}
