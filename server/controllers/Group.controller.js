@@ -108,6 +108,7 @@ module.exports.createGroupImage = async (req, res, next) => {
       params: { groupId },
       file: { fileName },
     } = req;
+    console.log(fileName)
 
     const [rowCount, [updatedGroup]] = await Group.update(
       {
