@@ -10,9 +10,21 @@ module.exports.createUser = async (req, res, next) => {
   }
 };
 
+// module.exports.findAll = async (req, res, next) => {
+//   try {
+//     const resultArray = await User.findAll();
+//     return res.status(200).send(resultArray);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
 module.exports.findAll = async (req, res, next) => {
   try {
-    const resultArray = await User.findAll();
+    const limit = parseInt(req.query.limit) || 5;
+    const offset = parseInt(req.query.offset) || 0;
+
+    const resultArray = await User.findAll({ limit, offset });
     return res.status(200).send(resultArray);
   } catch (error) {
     next(error);
@@ -97,12 +109,12 @@ module.exports.getUserwithGroups = async (req, res, next) => {
     const { userId } = req.params;
 
     const userWithGroups = await User.findByPk(userId, {
-      attributes:['id','first_name','last_name'],    //повертаємо тільки ті данні які нам потрібні
+      attributes: ["id", "first_name", "last_name"], //повертаємо тільки ті данні які нам потрібні
       include: [
         {
           model: Group,
-          through: { attributes: []  },   // працює на зв'язну таблицю users_to_gtoups
-          attributes: ['id','name']   // працює на таблицю groups
+          through: { attributes: [] }, // працює на зв'язну таблицю users_to_gtoups
+          attributes: ["id", "name"], // працює на таблицю groups
         },
       ],
     });
