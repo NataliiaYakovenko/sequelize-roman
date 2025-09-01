@@ -1,0 +1,26 @@
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card-wrapper {
+  border: 1px solid black;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.error {
+  background-color: red;
+  color: white;
+  padding: 10px;
+}
+
+.loading {
+  background-color: orange;
+  columns: black;
+  padding: 10px;
+}
