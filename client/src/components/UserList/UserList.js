@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
+import Modal from "react-modal";
 import { getUsers } from "../../api";
 import UserCard from "./UserCard";
 import "./styles.css";
+import UserCardModal from "./UserCardModal";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isModelOpen, setIsModelOpen] = useState(false);
 
   const loadUsers = (pageNumber) => {
     getUsers(pageNumber)
@@ -23,7 +27,16 @@ const UserList = () => {
   };
 
   const renderUsers = () => {
-    return users.map((user) => <UserCard user={user} key={user.id} />);
+    return users.map((user) => (
+      <UserCard
+        user={user}
+        key={user.id}
+        onClick={() => {
+          setSelectedUser(user);
+          setIsModelOpen(true);
+        }}
+      />
+    ));
   };
 
   const previosBtnHandler = () => {
@@ -47,12 +60,19 @@ const UserList = () => {
       {isLoading && <h2 className="loading">Loading...</h2>}
 
       <section className="card-container">
-        {users.length > 0 && (isLoading === false) ? (
+        {users.length > 0 && isLoading === false ? (
           renderUsers()
         ) : (
           <h2 className="error"> Users not found</h2>
         )}
       </section>
+
+      <UserCardModal
+        isModelOpen={isModelOpen}
+        setIsModelOpen={setIsModelOpen}
+        setSelectedUser={setSelectedUser}
+        selectedUser={selectedUser}
+      />
 
       <button onClick={previosBtnHandler} disabled={page === 1}>
         Previos page
