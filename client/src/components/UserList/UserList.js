@@ -4,6 +4,7 @@ import { getUsers } from "../../api";
 import UserCard from "./UserCard";
 import "./styles.css";
 import UserCardModal from "./UserCardModal";
+import AddUserFormModal from "./AddUserFormModal";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -11,7 +12,8 @@ const UserList = () => {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [isModelOpen, setIsModelOpen] = useState(false);
+  const [isModelOpen, setIsModelOpen] = useState(false); //Модалка перегляду інформації конкретного користувача
+  const [isModalAddOpen, setIsModalAddOpen] = useState(false); // Модалка додавання користувача
 
   const loadUsers = (pageNumber) => {
     getUsers(pageNumber)
@@ -57,6 +59,14 @@ const UserList = () => {
     <>
       <h1>User List</h1>
 
+      <button
+        onClick={() => {
+          setIsModalAddOpen(true);
+        }}
+      >
+        Add user
+      </button>
+
       {isLoading && <h2 className="loading">Loading...</h2>}
 
       <section className="card-container">
@@ -67,19 +77,26 @@ const UserList = () => {
         )}
       </section>
 
-      <UserCardModal
+      <div>
+        <button onClick={previosBtnHandler} disabled={page === 1}>
+          Previos page
+        </button>
+        <button onClick={nextBtnHandler} disabled={users.length < 5}>
+          Next page
+        </button>
+      </div>
+
+      <UserCardModal //Модальні вікна
         isModelOpen={isModelOpen}
         setIsModelOpen={setIsModelOpen}
         setSelectedUser={setSelectedUser}
         selectedUser={selectedUser}
       />
 
-      <button onClick={previosBtnHandler} disabled={page === 1}>
-        Previos page
-      </button>
-      <button onClick={nextBtnHandler} disabled={users.length < 5}>
-        Next page
-      </button>
+      <AddUserFormModal
+        isModelOpen={isModalAddOpen}
+        setIsModelOpen={setIsModalAddOpen}
+      />
     </>
   );
 };
