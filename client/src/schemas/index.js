@@ -14,3 +14,8 @@ export const USER_VALIDATION_SCHEMA = yup.object({
     .max(new Date(), "Birthdae must be current date"),
   gender: yup.string().required(),
 });
+
+export const GROUP_VALIDATION_SCHEMA = yup.object({
+  name: yup.string().trim().required().min(2).max(30),
+  description: yup.string().trim(),
+});
