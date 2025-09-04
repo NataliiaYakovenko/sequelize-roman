@@ -43,6 +43,17 @@ module.exports.getUserGroups = async (req, res, next) => {
   }
 };
 
+module.exports.getAllGroups = async (req, res, next) => {
+  try {
+    // const { userInstance } = req;
+
+    const allGroups = await Group.findAll();
+    res.status(200).send(allGroups);
+  } catch (err) {
+    next(err);
+  }
+};
+
 //видалити user з групи
 module.exports.deleteUserFromGroup = async (req, res, next) => {
   try {

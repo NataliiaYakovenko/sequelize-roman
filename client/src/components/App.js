@@ -1,8 +1,9 @@
-import UserList from "./UserList/UserList";
+import GroupsList from "./GroupsList/GroupsList";
+
 
 function App() {
   return (
-   <UserList/>
+   <GroupsList/>
   );
 }
 

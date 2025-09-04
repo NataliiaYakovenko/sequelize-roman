@@ -26,6 +26,8 @@ groupRouter.put(
   groupController.addUserToGroup
 );
 
+groupRouter.get('/',groupController.getAllGroups);
+
 //GET http://localhost:5000/api/groups/:userId
 groupRouter.get("/:userId", getUserInstance, groupController.getUserGroups);
 
@@ -33,7 +35,11 @@ groupRouter.get("/:userId", getUserInstance, groupController.getUserGroups);
 groupRouter.get("/:groupId/members", groupController.getGroupWithMembers);
 
 //POST http://localhost:5000/api/groups/:groupId
-groupRouter.post("/:groupId",upload.single("groupAvatar"),groupController.createGroupImage);
+groupRouter.post(
+  "/:groupId",
+  upload.single("groupAvatar"),
+  groupController.createGroupImage
+);
 
 //DELETE http://localhost:5000/api/groups/:userId/:groupId
 groupRouter.delete(
